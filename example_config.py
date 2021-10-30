@@ -1,2 +1,4 @@
-binance_api_key = ''
-binance_api_secret = ''
+BINANCE_API_KEY = ''
+BINANCE_API_SECRET = ''
+
+DEBUG = ''
