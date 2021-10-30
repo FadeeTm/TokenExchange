@@ -26,7 +26,7 @@ def get_max_discount_buy(orderbook, price, quantity):
     return 1 - nominal/orderbook_sum
 
 def merge_orderbooks(token1, token2, ifSell = True):
-    funcs = [cex.ftx, cex.ftx]
+    funcs = [cex.binance1, cex.coinb, cex.kucoin1, cex.gateio1, cex.kraken1, cex.huobi_]
     merged_orderbooks = []
     merged_prices = []
     for f in funcs:
@@ -55,7 +55,7 @@ if __name__ == "__main__":
     import cex
     token1 = "BTC"
     token2 = "USDT"
-    quantity = 100
+    quantity = 10
     
     a = merge_orderbooks(token1, token2, ifSell = False)
     b = merge_orderbooks(token1, token2, ifSell = True)
