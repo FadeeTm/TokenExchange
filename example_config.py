@@ -1,4 +1,8 @@
-BINANCE_API_KEY = ''
-BINANCE_API_SECRET = ''
+binance_api_key = ''
+binance_api_secret = ''
 
-DEBUG = ''
+ftx_api_key = ''
+ftx_api_secret = ''
+
+coinbase_api_key = ''
+coinbase_api_secret = ''
