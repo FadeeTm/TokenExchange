@@ -17,4 +17,4 @@ class Cost(db.Model):
 
 
     def __repr__(self):
-        return '<Token %r>' % self.id
+        return '<Cost %r>' % self.id
