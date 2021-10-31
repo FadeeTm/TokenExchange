@@ -1,81 +1,77 @@
-from config import *
-import ccxt
+import requests
 
 
-def binance1(token1, token2):
-    binance = ccxt.binance({
-        'apiKey': binance_key,
-        'secret': binance_secret,
-    })
-    fetch_ord = binance.fetch_order_book(token1 + '/' + token2) 
-    fetch_tick = binance.fetch_ticker(token1 + '/' + token2)['info']['lastPrice']
-    return(fetch_ord, fetch_tick)
+def binance(token1,token2):
+    rOrdBook = requests.get(f'https://api.binance.com/api/v3/depth?symbol={token1}{token2}&limit=1000')
+    rMarket = requests.get(f'https://api.binance.com/api/v3/ticker/price?symbol={token1}{token2}')
+    jOrdBook = rOrdBook.json()
+    jMarket = rMarket.json()
+    ordB = {}
+    ordB['bids'] = [[float(item[0]), float(item[1])] for item in jOrdBook['bids']] 
+    ordB['asks'] = [[float(item[0]), float(item[1])] for item in jOrdBook['asks']]
+    basePrice = float(jMarket["price"])
+    return(ordB,basePrice)
+
+def ftx(token1,token2):
+    rOrdBook = requests.get(f'https://ftx.com/api/markets/{token1}/{token2}/orderbook?depth=100')
+    rMarket = requests.get(f'https://ftx.com/api/markets/{token1}/{token2}')
+    jOrdBook = rOrdBook.json()["result"]
+    jMarket = rMarket.json()["result"]
+    ordB = {}
+    ordB['bids'] = [[float(item[0]), float(item[1])] for item in jOrdBook['bids']] 
+    ordB['asks'] = [[float(item[0]), float(item[1])] for item in jOrdBook['asks']]
+    basePrice = float(jMarket["last"])
+    return(ordB,basePrice)
 
 
-def coinb(token1, token2):
-    coinbasepro = ccxt.coinbasepro({
-        'apiKey': coinb_apiKey,
-        'secret': coinb_secret,
-        'password': coinb_password,
-    })
-    fetch_ord = coinbasepro.fetch_order_book(token1 + '/' + token2) 
-    fetch_tick = coinbasepro.fetch_ticker(token1 + '/' + token2)['info']['price']
-    return(fetch_ord, fetch_tick)
+def kucoin(token1,token2):
+    rOrdBook = requests.get(f'https://api.kucoin.com/api/v1/market/orderbook/level2_100?symbol={token1}-{token2}')
+    rMarket = requests.get(f'https://api.kucoin.com/api/v1/market/orderbook/level1?symbol={token1}-{token2}')
+    jOrdBook = rOrdBook.json()["data"]
+    jMarket = rMarket.json()["data"]
+    ordB = {}
+    ordB['bids'] = [[float(item[0]), float(item[1])] for item in jOrdBook['bids']] 
+    ordB['asks'] = [[float(item[0]), float(item[1])] for item in jOrdBook['asks']]
+    basePrice = float(jMarket["price"])
+    return(ordB,basePrice)
 
 
-def ftx(token1, token2):
-    ftx = ccxt.ftx({
-        'apiKey': ftx_api_key,
-        'secret': ftx_api_secret,
-    })
-    order_book = ftx.fetch_order_book(token1 + "/" + token2)['bids']
-    tickers = ftx.fetch_tickers(token1 + "/" + token2)
-    return order_book, tickers[token1 + "/" + token2]['last']
+def gateio(token1,token2):
+    rOrdBook = requests.get(f'https://api.gateio.ws/api/v4/spot/order_book?currency_pair={token1}_{token2}&limit=100')
+    rMarket = requests.get(f'https://api.gateio.ws/api/v4/spot/tickers?currency_pair={token1}_{token2}')
+    jOrdBook = rOrdBook.json()
+    jMarket = rMarket.json()
+    ordB = {}
+    ordB['bids'] = [[float(item[0]), float(item[1])] for item in jOrdBook['bids']] 
+    ordB['asks'] = [[float(item[0]), float(item[1])] for item in jOrdBook['asks']]
+    basePrice = float(jMarket[0]["last"])
+    return(ordB,basePrice)
 
 
-def kucoin1(token1, token2):
-    kucoin_ = ccxt.kucoin({
-        'apiKey': kucoin_apiKey,
-        'secret': kucoin_secret,
-        'password': kucoin_password,
-    })
-    fetch_ord = kucoin_.fetch_order_book(token1 + '/' + token2) 
-    fetch_tick = kucoin_.fetch_ticker(token1 + '/' + token2)['info']['last']
-    return(fetch_ord, fetch_tick)
+def kraken(token1,token2):
+    rOrdBook = requests.get(f'https://api.kraken.com/0/public/Depth?pair={token1}{token2}&count=100')
+    rMarket = requests.get(f'https://api.kraken.com/0/public/Ticker?pair={token1}{token2}')
+    key = list(rOrdBook.json()["result"].keys())[0]
+    jOrdBook = rOrdBook.json()["result"][key]
+    jMarket = rMarket.json()["result"][key]
+    ordB = {}
+    ordB['bids'] = [[float(item[0]), float(item[1])] for item in jOrdBook['bids']] 
+    ordB['asks'] = [[float(item[0]), float(item[1])] for item in jOrdBook['asks']]
+    basePrice = float(jMarket["c"][0])
+    return(ordB,basePrice)
 
 
-def gateio1(token1, token2):
-    gateio_ = ccxt.gateio({
-        'apiKey': gateio_api_key,
-        'secret': gate_io_secret,
-        'password': gate_io_pass,
-    })
-    fetch_ord = gateio_.fetch_order_book(token1 + '/' + token2)['bids']
-    fetch_tick = gateio_.fetch_ticker(token1 + '/' + token2)['last']
-    return(fetch_ord, fetch_tick)
+def huobi(token1,token2):
+    rOrdBook = requests.get(f"https://api.huobi.pro/market/depth?symbol={token1.lower()}{token2.lower()}&type=step0")
+    rMarket = requests.get(f"https://api.huobi.pro/market/detail/merged?symbol={token1.lower()}{token2.lower()}")
+    jOrdBook = rOrdBook.json()["tick"]
+    jMarket = rMarket.json()["tick"]
+    ordB = {}
+    ordB['bids'] = [[float(item[0]), float(item[1])] for item in jOrdBook['bids']] 
+    ordB['asks'] = [[float(item[0]), float(item[1])] for item in jOrdBook['asks']]
+    basePrice = float(jMarket["close"])
+    return(ordB,basePrice)
 
 
-
-def kraken1(token1, token2):
-    kraken = ccxt.kraken({
-        'apiKey': kraken_apiKey,
-        'secret': kraken_secret,
-    })
-    fetch_ord = kraken.fetch_order_book(token1 + '/' + token2) 
-    fetch_tick = kraken.fetch_ticker(token1 + '/' + token2)['last']
-    return(fetch_ord, fetch_tick)
-
-
-def huobi_(token1, token2):
-    huobi = ccxt.huobi({
-        'apiKey': huobi_apiKey,
-        'secret': huobi_secret,
-    })
-    fetch_ord = huobi.fetch_order_book(token1 + '/' + token2) 
-    fetch_tick = huobi.fetch_ticker(token1 + '/' + token2)['last']
-    return(fetch_ord, fetch_tick)
-
-
-# if __name__ == "__main__":
-#     print(binance1('BTC', 'USDT')[0])
-#     print(binance1('BTC', 'USDT')[1])
+if __name__ == "__main__":
+    print(huobi('BTC', 'USDT'))

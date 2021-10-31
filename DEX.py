@@ -7,10 +7,11 @@ def dyDx(token1,token2):
     jOrdBook = rOrdBook.json()
     jMarket = rMarket.json()
     ordB = {}
-    ordB['bids'] = [[item['price'], item['size']] for item in jOrdBook['bids']] 
-    ordB['asks'] = [[item['price'], item['size']] for item in jOrdBook['asks']]
+    ordB['bids'] = [[float(item['price']), float(item['size'])] for item in jOrdBook['bids']] 
+    ordB['asks'] = [[float(item['price']), float(item['size'])] for item in jOrdBook['asks']]
     basePrice = jMarket['markets'][f'{token1}-{token2}']['indexPrice'] 
     return(ordB,basePrice)
 
+
 if __name__ == '__main__':
-    dyDx('UNI','USD')
+    print(dyDx('UNI','USD'))
