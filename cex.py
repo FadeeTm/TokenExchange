@@ -1,8 +1,7 @@
 import requests
 
-
 def binance(token1,token2):
-    rOrdBook = requests.get(f'https://api.binance.com/api/v3/depth?symbol={token1}{token2}&limit=1000')
+    rOrdBook = requests.get(f'https://api.binance.com/api/v3/depth?symbol={token1}{token2}&limit=5000')
     rMarket = requests.get(f'https://api.binance.com/api/v3/ticker/price?symbol={token1}{token2}')
     jOrdBook = rOrdBook.json()
     jMarket = rMarket.json()
@@ -74,4 +73,6 @@ def huobi(token1,token2):
 
 
 if __name__ == "__main__":
-    print(huobi('BTC', 'USDT'))
+    funcs = [binance, ftx, kucoin, gateio, kraken, huobi]
+    for f in funcs:
+        print(f('BTC', 'USDT'))

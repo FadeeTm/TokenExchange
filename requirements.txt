@@ -1,5 +1,2 @@
-python-binance
 flask
-sqlalchemy
-ccxt
-gate_api
+cachetools
