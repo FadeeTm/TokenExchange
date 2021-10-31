@@ -1,4 +1,3 @@
-from config import *
 import requests
 
 def dyDx(token1,token2):

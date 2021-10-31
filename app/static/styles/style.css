@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@700&display=swap');
+
+body{
+    background-color: rgb(14, 16, 37);
+    margin: 0%;
+    width: inherit;
+    height: inherit;
+    color: white;
+    font-family: 'Saira Condensed', sans-serif;
+}
+
+.wrapper{
+    width: inherit;
+    height: inherit;
+}
+
+.box{
+    margin: 0 auto;
+    width: 90%;
+    height: 30%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-end;
+    justify-content: space-around;
+}
+
+.container{
+    margin: 2% 1%;
+    padding: 2% 1%;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.4);
+    border: solid 1px orangered;
+    border-radius: 5px;
+    
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+
+}
+
+.box :last-child{
+    margin-right: 0 auto;
+    display: block;
+}
+
+#input-container{
+    width: 20%;
+}
+
+#output-container{
+    width: 60%;
+}
+
+.cage{
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 4%;
+    margin-bottom: 7%;
+    display: block;
+}
+
+input{
+    background-color: silver;
+    width: 90%;
+}

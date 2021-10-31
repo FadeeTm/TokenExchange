@@ -1,4 +1,7 @@
 from cachetools import cached, TTLCache
+import cex
+import DEX
+import json
 
 def get_orderbook_sum(orderbook, quantity):
     cur_q = quantity
@@ -20,7 +23,7 @@ def get_max_discount_sell(orderbook, price, quantity):
     nominal = price * quantity
     price = 1 - orderbook_sum/nominal
     delta = nominal - orderbook_sum
-    return price, delta
+    return price*100, delta
 
 def get_max_discount_buy(orderbook, price, quantity):
     orderbook_sum = get_orderbook_sum(orderbook["asks"], quantity)
@@ -29,7 +32,7 @@ def get_max_discount_buy(orderbook, price, quantity):
     nominal = price * quantity
     price = 1 - nominal/orderbook_sum
     delta = orderbook_sum - nominal
-    return price, delta
+    return price*100, delta
 
 @cached(cache=TTLCache(maxsize=780, ttl=3600))
 def merge_orderbooks(token1, token2):
@@ -55,23 +58,18 @@ def merge_orderbooks(token1, token2):
 
 
 
-if __name__ == "__main__":
-    import cex
-    import DEX
-    import json
-    pairs = json.load(open("pairs_valid.json", "r"))
-    while 1:
-        token1 = input('enter token1: ')
-        token2 = input('enter token2: ')
-        if [token1, token2] in pairs:
-            quantity = int(input('enter quantity: '))
-            
-            merged, min_p, max_p = merge_orderbooks(token1, token2)
-            disc_s = get_max_discount_sell(merged, max_p, quantity)
-            disc_b = get_max_discount_buy(merged, min_p, quantity)
+def main(token1, token2, quantity, status):
 
-            print(f'sell: {disc_s}')
-            print(f'buy: {disc_b}')
-        else:
-            print("pair not exist")
-    
+    pairs = json.load(open("pairs_valid.json", "r"))
+    if [token1, token2] in pairs:
+        quantity = int(input('enter quantity: '))
+        merged, min_p, max_p = merge_orderbooks(token1, token2)
+        if(status == "buy"):
+            return get_max_discount_buy(merged, min_p, quantity)
+        elif(status == "sell"):
+            return get_max_discount_sell(merged, max_p, quantity)
+    else:
+        return "This pait does not exists"
+        
+
+
