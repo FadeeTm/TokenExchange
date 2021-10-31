@@ -23,7 +23,7 @@ def get_max_discount_sell(orderbook, price, quantity):
     nominal = price * quantity
     price = 1 - orderbook_sum/nominal
     delta = nominal - orderbook_sum
-    return price*100, delta
+    return round(price*100, 5), round(delta, 5)
 
 def get_max_discount_buy(orderbook, price, quantity):
     orderbook_sum = get_orderbook_sum(orderbook["asks"], quantity)
@@ -32,7 +32,7 @@ def get_max_discount_buy(orderbook, price, quantity):
     nominal = price * quantity
     price = 1 - nominal/orderbook_sum
     delta = orderbook_sum - nominal
-    return price*100, delta
+    return round(price*100, 5), round(delta, 5)
 
 @cached(cache=TTLCache(maxsize=780, ttl=3600))
 def merge_orderbooks(token1, token2):
@@ -57,8 +57,10 @@ def merge_orderbooks(token1, token2):
     return merged_orderbooks, min_price, max_price
 
 
-
 def main(token1, token2, quantity, status):
+    # aaa = [['BTC', 'USDT'], ['SUSHI', 'USDT'], ['ETH', 'BTC'], ['UNI', 'USDT']]
+    # for i in aaa:
+    #     merge_orderbooks(i[0], i[1])
     quantity = float(quantity)
     pairs = json.load(open("pairs_valid.json", "r"))
     if [token1, token2] in pairs:
@@ -68,7 +70,7 @@ def main(token1, token2, quantity, status):
         elif(status == "sell"):
             return get_max_discount_sell(merged, max_p, quantity)
     else:
-        return "This pait does not exists"
+        return "This pair does not exists"
         
 
 

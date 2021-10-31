@@ -21,7 +21,11 @@ def calculate():
             result = exchange.main(token1, token2, value, "buy")
     request_data = request.form
     print(request_data)
-    return render_template("result.html", result = result, form = request_data)
+    if result != "This pair does not exists":
+        return render_template("result.html", result = result, form = request_data)
+    else:
+        return render_template("error.html", result = result)
+    
 
 
 # @app.route('/', methods=["GET", "POST"])

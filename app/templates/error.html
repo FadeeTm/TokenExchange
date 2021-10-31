@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title%}
+    Главная страница
+{% endblock %}
+
+{%block body%}
+    <div class="wrapper" id="main-wrapper">
+        <div class="box" id="user-data-box">
+            <form class="container" id="input-container" method="post">
+                <h1>ENTER TRADE DATA</h1>
+                <div class="cage" id="token-1-input" >
+                    <label>YOUR TOKEN</label>
+                    <input id="token-1-input-name" type="text" name="input-token1" >
+                </div>
+
+                <div class="cage" id="token-2-input" >
+                    <label>DESIRED TOKEN</label>
+                    <input id="token-2-input-name" type="text" name="input-token2">
+                </div>
+                
+                <div class="cage" id="amount-input">
+                    <label>TRADE SIZE</label>
+                    <input type="number" name="input-value" min="0" step="1" >
+                </div>
+
+
+                <div class="buttons">
+                    <button type="button" value="1" class="sell" id = "sell" onclick="changeColorSell(this)" name="button-sell" >SELL</button>
+                    <button type="button" value="1" class="buy" id = "buy" onclick="changeColorBuy(this)" name="button-buy">BUY</button>
+                </div>
+
+                <div class="cage" id="amount-input">
+                    <input id="calc" type="submit" value="CALCULATE" name="submit-button">
+                </div>
+            </form>
+
+            <div class = "container" id = "output-container">
+                <h2 class="inner-header">BENEFIT CALCULATOR</h2>
+                <div>
+                    <p>{{result}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
