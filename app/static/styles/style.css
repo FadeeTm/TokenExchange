@@ -61,6 +61,110 @@ body{
 }
 
 input{
+    
     background-color: silver;
     width: 90%;
+    background-color: rgba(0, 0, 0, 0.4);
+    border: solid 1px orangered;
+    border-radius: 5px;
+    color: white;
+    font-family: 'Saira Condensed', sans-serif;
 }
+
+.buttons {
+    margin-top: 2%;
+    margin-bottom: 4%;
+    font-family: 'Saira Condensed', sans-serif;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+  }
+  button:hover {
+      opacity: 0.9;
+  }
+  
+  .sell
+  {
+      background-color: #D6D5D1;
+      font-family: 'Saira Condensed', sans-serif;
+      display: inline-block;
+      padding-left: 10pt;
+      padding-right: 10pt;
+      cursor: pointer;
+      border: none;
+      color: white;
+    background-color: black;
+    border: solid orangered 2px;
+    font-size: large;
+  
+  }
+  .buy
+  {
+      background-color: #D6D5D1;
+      font-family: 'Saira Condensed', sans-serif;
+      display: inline-block;
+      padding-left: 10pt;
+      padding-right: 10pt;
+      cursor: pointer;
+      border: none;
+      color: white;
+    background-color: black;
+    border: solid orangered 2px;
+    font-size: large;
+  }
+
+  input[type=submit] {
+    text-align: center;
+    background:#ccc;
+    cursor:pointer;
+    border-radius: 5px; 
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 4%;
+    margin-bottom: 7%;
+    min-width: 140px;
+    padding: 5px 5px;
+    font-family: 'Saira Condensed', sans-serif;
+    color: white;
+    background-color: black;
+    border: solid orangered 2px;
+    font-size: large;
+}
+
+/* .dropdown-checkbox{
+    position:relative !important;
+    display:inline-block !important;
+    }
+    
+    .dropdown-checkbox .label-title{
+    font-size:13px !important;
+    }
+
+    .dropdown-checkbox ul{
+    position: absolute !important;
+    background: #cacaca !important;
+    list-style: none !important;
+    min-width: 180px !important;
+    margin: 0px !important;
+    padding:0px !important;
+    left:0px !important;
+    display:none !important;
+    z-index:1 !important;
+    border: 1px solid #9c9c9c !important;
+    }
+
+    .dropdown-checkbox ul li{
+    font-size: 15px !important;
+    padding: 1px !important;
+    border-bottom: 1px solid #a5a5a5 !important;
+    margin: 0px !important;
+    }
+
+    .dropdown-checkbox ul li input{
+    margin-right:10px !important;
+    }
+    
+    .dropdown-checkbox:hover ul{
+    display:block !important;
+    } */
