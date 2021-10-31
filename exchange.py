@@ -59,10 +59,9 @@ def merge_orderbooks(token1, token2):
 
 
 def main(token1, token2, quantity, status):
-
+    quantity = float(quantity)
     pairs = json.load(open("pairs_valid.json", "r"))
     if [token1, token2] in pairs:
-        quantity = int(input('enter quantity: '))
         merged, min_p, max_p = merge_orderbooks(token1, token2)
         if(status == "buy"):
             return get_max_discount_buy(merged, min_p, quantity)

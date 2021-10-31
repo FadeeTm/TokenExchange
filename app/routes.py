@@ -9,13 +9,43 @@ def index():
 
 @app.route('/', methods=["GET", "POST"])
 @app.route('/index', methods=["GET", "POST"])
-def calculte():
+def calculate():
     result = [0, 0]
     if request.method == 'POST':
-        if request.form['submit-button'] == 'CALCULATE':
-            token1 = request.form['input-token1']
-            token2 = request.form['input-token2']
-            value = request.form['input-value']
+        token1 = request.form['input-token1']
+        token2 = request.form['input-token2']
+        value = request.form['input-value']
+        if request.form['submit-button'] == 'CALCULATE SELLING':
             result = exchange.main(token1, token2, value, "sell")
-    return render_template("result.html", result = result)
+        elif request.form['submit-button'] == 'CALCULATE BUYING':
+            result = exchange.main(token1, token2, value, "buy")
+    request_data = request.form
+    print(request_data)
+    return render_template("result.html", result = result, form = request_data)
 
+
+# @app.route('/', methods=["GET", "POST"])
+# @app.route('/index', methods=["GET", "POST"])
+# def buy():
+#     result = [0, 0]
+#     if request.method == 'POST':
+#         if request.form['button-buy'] == '1':
+#             token1 = request.form['input-token1']
+#             token2 = request.form['input-token2']
+#             value = request.form['input-value']
+#             result = exchange.main(token1, token2, value, "buy")
+#     return render_template("result.html", result = result)
+
+
+
+# @app.route('/', methods=["GET", "POST"])
+# @app.route('/index', methods=["GET", "POST"])
+# def sell():
+#     result = [0, 0]
+#     if request.method == 'POST':
+#         if request.form['button-sell'] == '1':
+#             token1 = request.form['input-token1']
+#             token2 = request.form['input-token2']
+#             value = request.form['input-value']
+#             result = exchange.main(token1, token2, value, "sell")
+#     return render_template("result.html", result = result)
