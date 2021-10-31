@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@700&display=swap');
 
 body{
-    background-color: rgb(14, 16, 37);
+    /* background-color: rgb(14, 16, 37); */
+    background: url("background.jpg") center no-repeat;
     margin: 0%;
     width: inherit;
     height: inherit;
@@ -28,7 +29,7 @@ body{
     margin: 2% 1%;
     padding: 2% 1%;
     text-align: center;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.6);
     border: solid 1px orangered;
     border-radius: 5px;
     
@@ -64,7 +65,7 @@ input{
     
     background-color: silver;
     width: 90%;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.6);
     border: solid 1px orangered;
     border-radius: 5px;
     color: white;

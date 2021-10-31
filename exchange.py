@@ -58,9 +58,9 @@ def merge_orderbooks(token1, token2):
 
 
 def main(token1, token2, quantity, status):
-    # aaa = [['BTC', 'USDT'], ['SUSHI', 'USDT'], ['ETH', 'BTC'], ['UNI', 'USDT']]
-    # for i in aaa:
-    #     merge_orderbooks(i[0], i[1])
+    aaa = [['BTC', 'USDT'], ['SUSHI', 'USDT'], ['ETH', 'BTC'], ['UNI', 'USDT']]
+    for i in aaa:
+        merge_orderbooks(i[0], i[1])
     quantity = float(quantity)
     pairs = json.load(open("pairs_valid.json", "r"))
     if [token1, token2] in pairs:
